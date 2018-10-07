@@ -30,21 +30,22 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 加载插件
+     *
      * @param view
      */
     public void load(View view) {
-
-        requestPermissions();
+        realLoad();
+//        requestPermissions();
 
     }
 
 
-    private void realLoad(){
+    private void realLoad() {
         String ss = Environment.getExternalStorageDirectory().getAbsolutePath();
-        Log.e("路径：",ss);
-        File file = new File(Environment.getExternalStorageDirectory(),"plugin.apk");
-        if (file.exists()){
-            Log.e("文件是否为null","： 为空");
+        Log.e("路径：", ss);
+        File file = new File(Environment.getExternalStorageDirectory(), "plugin.apk");
+        if (file.exists()) {
+            Log.e("文件存在", "： 不为空");
         }
         PluginManger.getInstance().loadApk(file.getAbsolutePath());
     }
@@ -53,13 +54,14 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 跳转apk
+     *
      * @param view
      */
     public void click(View view) {
 
         // 首先知道 首个launchActivity  的全类名
         // 在packageInfo中获取
-        Intent intent = new Intent(this,ProxyActivity.class);
+        Intent intent = new Intent(this, ProxyActivity.class);
         intent.putExtra("className", PluginManger.getInstance().getPackageInfo().activities[0].name);
         startActivity(intent);
     }
@@ -68,20 +70,20 @@ public class MainActivity extends AppCompatActivity {
     private void requestPermissions() {
         RxPermissions rxPermission = new RxPermissions(MainActivity.this);
         rxPermission.requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(new Consumer<Permission>() {
                     @Override
                     public void accept(Permission permission) throws Exception {
                         if (permission.granted) {
                             realLoad();
                             // 用户已经同意该权限
-                            Log.d("lxd", permission.name + " is granted.");
+                            Log.e("lxd", permission.name + " is granted.");
                         } else if (permission.shouldShowRequestPermissionRationale) {
                             // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
-                            Log.d("lxd", permission.name + " is denied. More info should be provided.");
+                            Log.e("lxd", permission.name + " is denied. More info should be provided.");
                         } else {
                             // 用户拒绝了该权限，并且选中『不再询问』
-                            Log.d("lxd", permission.name + " is denied.");
+                            Log.e("lxd", permission.name + " is denied.");
                         }
                     }
                 });

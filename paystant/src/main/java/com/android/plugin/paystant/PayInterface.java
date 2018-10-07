@@ -21,7 +21,7 @@ public interface PayInterface {
     public void onResume();
     public void onPause();
     public void onStop();
-    public void onDestory();
+    public void onDestroy();
     public void onSaveInstanceState(Bundle outState);
     public boolean onTouchEvent(MotionEvent event);
     public void onBackPressed();

@@ -28,7 +28,13 @@ public class MainActivity extends BaseActivity {
 
     }
 
-//    public void toast(View view) {
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+
+    //    public void toast(View view) {
 //        //这里只能用that 而不能用 MainActivity
 //      //  Toast.makeText(that,"hello,这是插件",Toast.LENGTH_SHORT).show();
 //

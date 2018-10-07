@@ -13,6 +13,9 @@ import java.lang.reflect.Method;
 
 import dalvik.system.DexClassLoader;
 
+/**
+ * 加载res和class文件
+ */
 public class PluginManger {
 
     private PackageInfo packageInfo;
@@ -71,6 +74,10 @@ public class PluginManger {
         this.packageInfo = packageInfo;
     }
 
+    /**
+     * 实例化apk的 classloader 和resource 对象 然后将其加载进来
+     * @param path
+     */
     public void loadApk(String path) {
         File dexOutFile = context.getDir("dex", Context.MODE_PRIVATE);
         /**
@@ -79,7 +86,13 @@ public class PluginManger {
          * 第三个参数 架包路径
          * 第四个参数 classLoader对象
          */
-        dexClassLoader = new DexClassLoader(path, dexOutFile.getAbsolutePath(), null, context.getClassLoader());
+        dexClassLoader = new DexClassLoader(path,
+                dexOutFile.getAbsolutePath(),
+                null,
+                context.getClassLoader());
+        if(dexClassLoader!=null){
+            Log.e("dexClassLoader",": dexClassLoader 不为空");
+        }
         PackageManager packageManager = context.getPackageManager();
         // 获取插件中的所有的信息
         packageInfo = packageManager.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES);
@@ -93,8 +106,8 @@ public class PluginManger {
 
             AssetManager assetManager = AssetManager.class.newInstance();
 
-            Method addAssetpath = AssetManager.class.getMethod("addAssetPath", String.class);
-            addAssetpath.invoke(assetManager,path);
+            Method addAssetPath = AssetManager.class.getMethod("addAssetPath", String.class);
+            addAssetPath.invoke(assetManager,path);
             resources = new Resources(assetManager, context.getResources().getDisplayMetrics(), context.getResources().getConfiguration());
         } catch (InstantiationException e) {
             e.printStackTrace();

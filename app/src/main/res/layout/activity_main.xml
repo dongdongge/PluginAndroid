@@ -7,15 +7,16 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-  <Button
-      android:layout_width="match_parent"
-      android:text="加载"
-      android:onClick="load"
-      android:layout_height="50dp" />
     <Button
         android:layout_width="match_parent"
-        android:text="跳转"
+        android:layout_height="50dp"
+        android:onClick="load"
+        android:text="加载" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:onClick="click"
-        android:layout_height="50dp" />
+        android:text="跳转" />
 
 </LinearLayout>
