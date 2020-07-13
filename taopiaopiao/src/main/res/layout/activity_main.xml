@@ -14,7 +14,8 @@
 
     <Button
         android:id="@+id/bt_jump"
-        android:text="toast"
+        android:text="打开第二个界面"
+        android:onClick="pushSecondActivity"
         android:layout_width="match_parent"
         android:layout_height="50dp" />
 

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.android.plugin.paystant.PayInterface;
 
@@ -165,5 +166,10 @@ public class BaseActivity extends Activity implements PayInterface {
     @Override
     public void onSaveInstanceState(Bundle outState) {
 
+    }
+
+
+    public void toast(CharSequence text){
+        Toast.makeText(that,text,Toast.LENGTH_SHORT).show();
     }
 }

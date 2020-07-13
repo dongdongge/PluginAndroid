@@ -2,11 +2,11 @@ package com.android.plugin.taopiaopiao;
 
 import android.os.Bundle;
 
-public class SceondActivity extends BaseActivity {
+public class SecondActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sceond);
+        setContentView(R.layout.activity_second);
     }
 }
