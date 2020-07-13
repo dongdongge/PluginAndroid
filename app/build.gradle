@@ -10,10 +10,40 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        config {
+            //签名文件在项目根目录下
+            //KEY_ALIAS，KEY_PASSWORD，STORE_PASSWORD写在项目根目录下的gradle.properties里
+            keyAlias "loadnative"
+            keyPassword "loadnative"
+            storeFile file('../keystore/loadnative.keystore')
+            storePassword "loadnative"
+        }
+    }
     buildTypes {
         release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            //是否混淆
             minifyEnabled false
+            //是否移除无用资源
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config//使用上面配置的签名进行打包
+
+        }
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            //是否混淆
+            minifyEnabled false
+            signingConfig signingConfigs.config//ddebug模式下也使用上面配置的签名进行打包
+        }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->  // each 改为 all
+            def date = new Date().format("yyyyMMddHHmm", TimeZone.getDefault())
+            if (variant.buildType.name.equals('release')) {
+                outputFileName = "loadnative_${date}_v${defaultConfig.versionName}_release.apk"
+            }
         }
     }
 }
